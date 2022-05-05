@@ -5,3 +5,4 @@ for i in range(101):
         print(i)
 #Comprimida
 print([a for a in range(1,100) if a%5==0])
+
