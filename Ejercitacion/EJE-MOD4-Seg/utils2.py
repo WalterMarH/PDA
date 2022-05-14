@@ -1,8 +1,6 @@
-import matplotlib.pyplot as plt
-import numpy as np
-
 def graficar(signal, fm, t1 = 0, t2 = 10, title = "Señal de Fotoplestimografía"):
-    
+    import matplotlib.pyplot as plt
+    import numpy as np
     totalLenght = len(signal)
     if t1 <0 or t2 < 0 or t2 < t1 or t1 == t2 or t1 > totalLenght or t2 == totalLenght > totalLenght:
         raise ValueError("t1 y/o t2 están mal")
@@ -20,7 +18,22 @@ def graficar(signal, fm, t1 = 0, t2 = 10, title = "Señal de Fotoplestimografía
 
         plt.show()
 
+def crearMatrix(dimensiones:tuple = None):
+    """Genera una matriz de ceros utilizando la función zeros de numpy"""
+    if dimensiones:
+        from numpy import zeros
+        matrix = zeros(dimensiones,int)
+        for c in range(dimensiones[2]):
+            for n in range(dimensiones[1]):
+                for m in range(dimensiones[0]):
+                    matrix[m,n,c]=200
+        del zeros
+        return matrix
+    else:
+        raise ValueError("No se ha dado ninguna dimensión")
+
 def main():
+    import numpy as np
     file = open("plethysmography.txt", "r")
 
     plesti = file.read().split()
@@ -31,3 +44,4 @@ def main():
 
 if __name__ == "__main__": 
     main()
+

@@ -3,15 +3,16 @@
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
+from utils2 import crearMatrix
 
 class Image():
     """Documentación de Image"""
 
-    def __init__(self, image:"numpy.Array" = 'nada', filename:str = ""):
+    def __init__(self, dimensiones:tuple = None, filename:str = ""):
         """Crea una matriz 2D a partir de image o de filename"""
 
-        if image!='nada':
-            self.image = image
+        if dimensiones:
+            self.image = crearMatrix(dimensiones)
             self.fil =  self.image.shape[0]
             self.col = self.image.shape[1]
         elif filename:
@@ -29,7 +30,7 @@ class Image():
 
     def showImage(self):
         """Mostramos imágen"""
-        amostrar=jota2=plt.imshow(self.image)
+        amostrar=plt.imshow(self.image)
         plt.show()
 
         
@@ -44,21 +45,20 @@ class Image():
         """Guarda la imágen en un archivo jpg"""
         mpimg.imsave(filename,self.image)
         
-canales=3
-columnas=100
-filas=100
-imagen2=np.zeros((filas,columnas,canales),int)
-for c in range(canales):
-    for n in range(columnas):
-        for m in range(filas):
-            imagen2[m,n,c]=200
-imagen2=Image(image=imagen2)
-imagen=Image(filename='bote.jpg')
-imagen2.showImage()
-imagen.showImage()
-print(imagen.size())
-print(imagen.col)
-print(imagen.fil)
-#imagen.saveImage('bote2.jpg')
+# canales=3
+# columnas=1920
+# filas=1080
+
+# imagen2=Image((filas,columnas,canales))
+# #imagen=Image(filename='bote.jpg')
+# brillosa=ajustarBrillo(imagen2.image,0.5)
+# imagen2.showImage()
+# amostrar=plt.imshow(brillosa)
+
+# #imagen.showImage()
+# print(imagen2.size())
+# print(imagen2.col)
+# print(imagen2.fil)
+# #imagen.saveImage('bote2.jpg')
 
 
