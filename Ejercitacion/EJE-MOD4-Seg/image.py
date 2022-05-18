@@ -30,7 +30,7 @@ class Image():
 
     def showImage(self):
         """Mostramos imágen"""
-        amostrar=plt.imshow(self.image)
+        amostrar=plt.imshow(self.image.astype(np.uint8))
         plt.show()
 
         
