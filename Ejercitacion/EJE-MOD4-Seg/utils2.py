@@ -26,7 +26,7 @@ def crearMatrix(dimensiones:tuple = None):
         for c in range(dimensiones[2]):
             for n in range(dimensiones[1]):
                 for m in range(dimensiones[0]):
-                    matrix[m,n,c]=200
+                    matrix[m,n,c]=0
         del zeros
         return matrix
     else:
