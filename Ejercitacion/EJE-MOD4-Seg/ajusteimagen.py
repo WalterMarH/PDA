@@ -53,7 +53,25 @@ def ajustarContraste(image, alfa):
 
 def ajustarGamma(image, gamma):
     """Doc..."""
-    pass
+    maximo=0
+    imagenProcesada=copy.deepcopy(image)
+    for canal in range(3):
+        for i in range(imagenProcesada.fil):
+            for j in range(imagenProcesada.col):
+                if i>maximo:
+                    maximo=i
+    print(maximo)
+    contador=0
+    c=255/((maximo)**gamma)
+
+    for canal in range(3):
+        for i in range(imagenProcesada.fil):
+            for j in range(imagenProcesada.col):
+                pixel=c*(imagenProcesada.image[i][j][canal])**gamma
+                print(contador)
+                contador=contador+1
+                imagenProcesada.image[i][j][canal] = pixel
+    return imagenProcesada
 
 def aplicarKernel(image, kernel):
     """Doc..."""
@@ -97,7 +115,7 @@ def aplicarKernel(image, kernel):
 def main():
     #Mostrar su implementación aquí
     #imagen2=Image((8,8,3))
-    imagen=Image(filename='bote.jpg')
+    imagen=Image(filename='punchman2.jpg')
     #brillosa2=
     #brilloajustado=ajustarBrillo(imagen,1.5)
     #amostrar=plt.imshow(brillosa2)
@@ -106,12 +124,14 @@ def main():
     #contrastada=ajustarContraste(imagen,0.7)
     imagen.showImage()
     #contrastada.showImage()
-    #kernel=[[0.0625,0.125,0.0625],[0.125,0.25,0.125],[0.0625,0.125,0.0625]] #blur
-    kernel=[[0,-1,0],[-1,8,-1],[0,-1,0]] #sharpen
+    kernel=[[0.0625,0.125,0.0625],[0.125,0.25,0.125],[0.0625,0.125,0.0625]] #blur
+    #kernel=[[0,-1,0],[-1,6,-1],[0,-1,0]] #sharpen
     #print(kernel[0][0]+kernel[0][1]+kernel[0][2]+kernel[1][0]+kernel[1][1]+kernel[1][2]+kernel[2][0]+kernel[2][1]+kernel[2][2])
-    kerneleada=aplicarKernel(imagen,kernel)
-    kerneleada.showImage()
+    #kerneleada=aplicarKernel(imagen,kernel)
+    #kerneleada.showImage()
     #print(kernel[2][2])
+    gammaajustada=ajustarGamma(imagen,1)
+    gammaajustada.showImage()
     pass
 
 if __name__ == '__main__':
