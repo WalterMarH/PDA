@@ -19,7 +19,12 @@ def ajustarBrillo(imagene, ajuste=1):
     for rgb in range(3):
         for n in range(imagene.col):
             for m in range(imagene.fil):
-                abrillar[m,n,rgb]=int(abrillar[m,n,rgb]*ajuste)
+                pixel=int(abrillar[m,n,rgb]*ajuste)
+                if pixel<0:
+                    pixel=0
+                elif pixel>255:
+                    pixel=255
+                abrillar[m,n,rgb]=pixel
     #brilloajustado.showImage()
     return brilloajustado
 
@@ -172,11 +177,11 @@ def aplicarLog(image):
                     maximo=imagenProcesada.image[i][j][canal]
     print(maximo)
     contador=0
-    c=255/(math.log(255+maximo))
+    c=255/(math.log(1+maximo))
     for canal in range(3):
         for i in range(imagenProcesada.fil):
             for j in range(imagenProcesada.col):
-                pixel=c*(math.log((255+imagenProcesada.image[i][j][canal])))
+                pixel=c*(math.log((1+imagenProcesada.image[i][j][canal])))
                 #print(contador)
                 contador=contador+1
                 imagenProcesada.image[i][j][canal] = pixel
@@ -191,28 +196,28 @@ def main():
     #imagen2=Image((8,8,3))
     imagen=Image(filename='starship.jpg')
     imagen.showImage()
-    # brilloajustado=ajustarBrillo(imagen,1.5)
-    # # amostrar=plt.imshow(brillosa2)
-    # brilloajustado.showImage()
-    # contrastada=ajustarContraste(imagen,0.7)
-    # contrastada.showImage()
-    # kernel=[[0.0625,0.125,0.0625],[0.125,0.25,0.125],[0.0625,0.125,0.0625]] #blur
-    # #kernel=[[0,-1,0],[-1,8,-1],[0,-1,0]] #sharpen
-    # #print(kernel[0][0]+kernel[0][1]+kernel[0][2]+kernel[1][0]+kernel[1][1]+kernel[1][2]+kernel[2][0]+kernel[2][1]+kernel[2][2])
-    # kerneleada=aplicarKernel(imagen,kernel)
-    # kerneleada.showImage()
-    # #print(kernel[2][2])
-    # gammaajustada=ajustarGamma(imagen,2)
-    # gammaajustada.showImage()
-    # canales=getChannels(imagen)
-    # canales[0].showImage()
-    # canales[1].showImage()
-    # canales[2].showImage()
+    brilloajustado=ajustarBrillo(imagen,1.5)
+    # amostrar=plt.imshow(brillosa2)
+    brilloajustado.showImage()
+    contrastada=ajustarContraste(imagen,0.7)
+    contrastada.showImage()
+    kernel=[[0.0625,0.125,0.0625],[0.125,0.25,0.125],[0.0625,0.125,0.0625]] #blur
+    #kernel=[[0,-1,0],[-1,8,-1],[0,-1,0]] #sharpen
+    #print(kernel[0][0]+kernel[0][1]+kernel[0][2]+kernel[1][0]+kernel[1][1]+kernel[1][2]+kernel[2][0]+kernel[2][1]+kernel[2][2])
+    kerneleada=aplicarKernel(imagen,kernel)
+    kerneleada.showImage()
+    #print(kernel[2][2])
+    gammaajustada=ajustarGamma(imagen,2)
+    gammaajustada.showImage()
+    canales=getChannels(imagen)
+    canales[0].showImage()
+    canales[1].showImage()
+    canales[2].showImage()
     histo=getHistograma(imagen)
     print(histo)
     print(np.shape(histo))
-    # logaritmeada=aplicarLog(imagen)
-    # logaritmeada.showImage()
+    logaritmeada=aplicarLog(imagen)
+    logaritmeada.showImage()
 
 
     pass
