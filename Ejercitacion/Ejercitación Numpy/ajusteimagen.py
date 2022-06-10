@@ -199,6 +199,15 @@ def aplicarKernel(image, kernel):
                 imagenProcesada.image[i][j][canal] = pixel
     return imagenProcesada
 
+def aplicarKernel2(image, kernel):
+    imagenProcesada=copy.deepcopy(image)
+    c=np.sum(kernel)
+    if c==0:
+        c=1
+    a=0
+    
+    
+
 def aplicarLog(image):
     """ Retorna un objeto de la clase imagen transformado con una función logarítmmica"""
     max=0
