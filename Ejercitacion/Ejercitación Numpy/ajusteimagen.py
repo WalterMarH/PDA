@@ -11,13 +11,12 @@ import math as math
 def ajustarBrillo(imagene, ajuste=1):
     """Recive un objeto de la clase Image y un valor de ajuste, retorna un objeto de la clase Image con el brillo ajustado según el valor pasado"""
     brilloajustado=copy.deepcopy(imagene)
-    abrillar=brilloajustado.image[::]
+    abrillar=brilloajustado.image
     #arraybrillo=np.full((imagene.fil,imagene.col,3), ajuste)
-    abrillar2=abrillar * ajuste
-    mask = abrillar2[ : , : , : ] > 255
+    abrillar2=abrillar*ajuste
+    mask = abrillar2[:,:,:] > 255
     abrillar2[mask]=255
     brilloajustado.image=abrillar2
-
     # for rgb in range(3):
     #     for n in range(imagene.col):
     #         for m in range(imagene.fil):
@@ -36,9 +35,9 @@ def getHistograma(image):
     """Recibe un objeto de la clase Imagen, retorna una matriz 256x3 con los valores del histpgrama y también muestra 3 figuras con los 3 histogramas correspondientes"""
     #canales=getChannels(image)
     lista=np.arange(0,256,1)
-    historojo, bins=np.histogram(image.image[:,:,0], bins=256, range=(0, 255))
-    histoverde, bins=np.histogram(image.image[:,:,1], bins=256, range=(0, 255))
-    histoazul, bins=np.histogram(image.image[:,:,2], bins=256, range=(0, 255))
+    historojo, bins1=np.histogram(image.image[:,:,0], bins=256, range=(0, 255))
+    histoverde, bins2=np.histogram(image.image[:,:,1], bins=256, range=(0, 255))
+    histoazul, bins3=np.histogram(image.image[:,:,2], bins=256, range=(0, 255))
 
 
     listarojos=historojo
@@ -102,6 +101,8 @@ def getChannels(image):
     rojo2.image[:,:,0]=rojo.image[:,:,0]
     verde2.image[:,:,1]=verde.image[:,:,1]
     azul2.image[:,:,2]=azul.image[:,:,2]
+
+
     rojo.image=rojo.image[:,:,0]
     verde.image=verde.image[:,:,1]
     azul.image=azul.image[:,:,2]
@@ -243,7 +244,7 @@ def main():
     # #imagen2=Image((8,8,3))
     imagen=Image(filename='starship.jpg')
     imagen.showImage()
-    #brilloajustado=ajustarBrillo(imagen,2.5)
+    #brilloajustado=ajustarBrillo(imagen,1.6)
     # # amostrar=plt.imshow(brillosa2)
     #brilloajustado.showImage()
     #contrastada=ajustarContraste(imagen,2)
@@ -251,15 +252,15 @@ def main():
     kernel=[[0.0625,0.125,0.0625],[0.125,0.25,0.125],[0.0625,0.125,0.0625]] #blur
     # #kernel=[[0,-1,0],[-1,8,-1],[0,-1,0]] #sharpen
     # #print(kernel[0][0]+kernel[0][1]+kernel[0][2]+kernel[1][0]+kernel[1][1]+kernel[1][2]+kernel[2][0]+kernel[2][1]+kernel[2][2])
-    kerneleada=aplicarKernel(imagen,kernel)
-    kerneleada.showImage()
+    # kerneleada=aplicarKernel(imagen,kernel)
+    # kerneleada.showImage()
     # #print(kernel[2][2])
     #gammaajustada=ajustarGamma(imagen,2)
     #gammaajustada.showImage()
-    # canales=getChannels(imagen)
-    # canales[0].showImage()
-    # canales[1].showImage()
-    # canales[2].showImage()
+    canales=getChannels(imagen)
+    canales[0].showImage()
+    canales[1].showImage()
+    canales[2].showImage()
     #histo=getHistograma(imagen)
     # print(histo)
     # print(np.shape(histo))
